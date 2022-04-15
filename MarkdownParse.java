@@ -20,8 +20,8 @@ public class MarkdownParse {
                 return toReturn;
             }
 
-            // ignores links of images
-            if(openBracket - 1 > 0 && !markdown.substring(openBracket - 1, openBracket).contains("!")){
+            // ignores links of images and empty parenthesis
+            if(openBracket - 1 > 0 && !markdown.substring(openBracket - 1, openBracket).contains("!") && openParen + 1 != closeParen){
                 toReturn.add(markdown.substring(openParen + 1, closeParen));
             }
             currentIndex = closeParen + 1;
