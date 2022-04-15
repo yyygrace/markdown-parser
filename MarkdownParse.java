@@ -19,7 +19,11 @@ public class MarkdownParse {
             if(openBracket == -1){
                 return toReturn;
             }
-            toReturn.add(markdown.substring(openParen + 1, closeParen));
+
+            // ignores links of images
+            if(openBracket - 1 > 0 && !markdown.substring(openBracket - 1, openBracket).contains("!")){
+                toReturn.add(markdown.substring(openParen + 1, closeParen));
+            }
             currentIndex = closeParen + 1;
         }
 
