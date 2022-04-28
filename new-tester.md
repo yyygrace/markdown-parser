@@ -2,6 +2,6 @@
 
 [link1](www.google.com)
 
-[link2]()
+[link2]
 
 notalink
