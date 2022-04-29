@@ -21,6 +21,59 @@ public class MarkdownParseTest {        // class header
     }
 
     @Test
+    public void test2() throws IOException{
+        ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file2.md")));
+        ArrayList<String> exp = new ArrayList<String>();
+        exp.add("https://something.com");
+        exp.add("some-page.html");
+        assertEquals(exp, links);
+    }
+
+    @Test
+    public void test3() throws IOException{
+        ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file3.md")));
+        ArrayList<String> empty = new ArrayList<String>();
+        assertEquals(empty, links);
+    }
+
+    @Test
+    public void test4() throws IOException{
+        ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file4.md")));
+        ArrayList<String> empty = new ArrayList<String>();
+        assertEquals(empty, links);
+    }
+/*
+    @Test
+    public void test5() throws IOException{
+        ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file5.md")));
+        ArrayList<String> empty = new ArrayList<String>();
+        assertEquals(empty, links);
+    }
+
+    @Test
+    public void test6() throws IOException{
+        ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file6.md")));
+        ArrayList<String> exp = new ArrayList<String>();
+        exp.add("page.com");
+        assertEquals(exp, links);
+    }
+    */
+
+    @Test
+    public void test7() throws IOException{
+        ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file7.md")));
+        ArrayList<String> empty = new ArrayList<String>();
+        assertEquals(empty, links);
+    }
+
+    @Test
+    public void test8() throws IOException{
+        ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file8.md")));
+        ArrayList<String> empty = new ArrayList<String>();
+        assertEquals(empty, links);
+    }
+
+    @Test
     public void imageTester() throws IOException{
         ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("image-tester.md")));
         ArrayList<String> empty = new ArrayList<String>();
