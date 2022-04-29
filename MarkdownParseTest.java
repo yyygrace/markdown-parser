@@ -42,14 +42,14 @@ public class MarkdownParseTest {        // class header
         ArrayList<String> empty = new ArrayList<String>();
         assertEquals(empty, links);
     }
-/*
+
     @Test
     public void test5() throws IOException{
         ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file5.md")));
         ArrayList<String> empty = new ArrayList<String>();
         assertEquals(empty, links);
     }
-
+/*
     @Test
     public void test6() throws IOException{
         ArrayList<String> links = MarkdownParse.getLinks(Files.readString(Path.of("test-file6.md")));
