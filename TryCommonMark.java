@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import org.commonmark.node.*;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -11,10 +12,25 @@ class TryCommonMark {
         System.out.println(renderer);
 
         // this part actually does the computation
-    Node node = parser.parse("Example\n=======\n\nSome more text");
-    WordCountVisitor visitor = new WordCountVisitor();
-    node.accept(visitor);
-    System.out.println(visitor.wordCount);  // 4
+        Node node = parser.parse("Example\n=======\n\nSome more text [link](.url)");
+        //WordCountVisitor visitor = new WordCountVisitor();
+        //node.accept(visitor);
+        //System.out.println(visitor.wordCount);  // 4
+
+        LinkVistor linkVisitor = new LinkVistor();
+        node.accept(linkVisitor);
+        System.out.print(linkVisitor.linkList);
+    }
+}
+
+class LinkVistor extends AbstractVisitor{
+    //int linkCount = 0;
+    ArrayList<String> linkList = new ArrayList<>();
+
+    @Override
+    public void visit(Link link){
+        //linkCount++;
+        linkList.add(link.getDestination());
     }
 }
 
