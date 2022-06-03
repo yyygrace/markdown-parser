@@ -4,30 +4,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import org.commonmark.node.*;
+import org.commonmark.parser.Parser;
 
 public class MarkdownParse {
 //
     public static ArrayList<String> getLinks(String markdown) {
-        ArrayList<String> toReturn = new ArrayList<>();
-        // find the next [, then find the ], then find the (, then read link upto next )
-        int currentIndex = 0;
-        while(currentIndex < markdown.length()) {
-            int openBracket = markdown.indexOf("[", currentIndex);
-            int closeBracket = markdown.indexOf("]", openBracket);
-            int openParen = markdown.indexOf("(", currentIndex);
-            int closeParen = markdown.indexOf(")", openParen);
-            if(openBracket == -1 || openParen == -1 || closeBracket + 1 != openParen){
-                return toReturn;
-            }
+        Parser parser = Parser.builder().build();
+        Node node = parser.parse(markdown);
+        LinkVistor linkVisitor = new LinkVistor();
+        node.accept(linkVisitor);
 
-            // ignores links of images and empty parenthesis
-            if(openBracket - 1 > 0 && !markdown.substring(openBracket - 1, openBracket).contains("!") && openParen + 1 != closeParen){
-                toReturn.add(markdown.substring(openParen + 1, closeParen));
-            }
-            currentIndex = closeParen + 1;
-        }
-
-        return toReturn;
+        return linkVisitor.linkList;
     }
 
 
@@ -36,5 +24,14 @@ public class MarkdownParse {
         String content = Files.readString(fileName);
         ArrayList<String> links = getLinks(content);
 	    System.out.println(links);
+    }
+}
+
+class LinkVistor extends AbstractVisitor{
+    ArrayList<String> linkList = new ArrayList<>();
+
+    @Override
+    public void visit(Link link){
+        linkList.add(link.getDestination());
     }
 }
